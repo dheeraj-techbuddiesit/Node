@@ -34,7 +34,6 @@ const userLogin = asyncHandler(async (req, res) => {
   }
   const isMatch = await bcrypt.compare(password, userExist.password);
   if (!isMatch) {
-  
     return res.status(500).json({ message: "Email or password Invalid" });
   }
   const accessToken = jwt.sign(
@@ -44,13 +43,13 @@ const userLogin = asyncHandler(async (req, res) => {
       id: userExist.id,
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1m" }
+    { expiresIn: "1Years" }
   );
   res.status(200).json({token: accessToken});
 });
 
 const userData = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "User data" });
+  res.status(200).json(req.user);
 });
 
 module.exports = { registerUser, userLogin, userData };

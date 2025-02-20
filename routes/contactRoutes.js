@@ -5,10 +5,10 @@ const {getAllContact,
     createContact,
     updateContact , 
     deleteContact}=require('../controller/contactController');
+    const validateToken = require("../middleware/validateToken");
 
-router.route("/").get(getAllContact);
-router.route("/:id").get(getSingleContact);
-router.route("/").post(createContact);
-router.route("/:id").put(updateContact);
-router.route("/:id").delete(deleteContact);
+
+// router.use(validateToken);
+router.get("/",validateToken, getAllContact).post("/",validateToken,createContact);
+router.route("/:id").get(getSingleContact).put(updateContact).delete(deleteContact);
 module.exports = router;
