@@ -7,7 +7,7 @@ const validateToken = asyncHandler(async (req,res,next)=>{
         const accessToken = token.split(" ")[1];
         jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
             if(err){
-                 res.status(403).json("Unauthorized");
+                return res.status(403).json("Unauthorized");
             };
         console.log("User is verified", user);
         req.user = user;
