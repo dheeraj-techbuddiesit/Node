@@ -1,4 +1,5 @@
 const express = require('express');
+const serverless = require("serverless-http");
 const errorHandler = require('./middleware/errorHandler');
 const app =express();
 const connectDB = require('./confiq/dbConnection');
@@ -12,3 +13,4 @@ app.use(errorHandler);
 app.listen(port, ()=>{
     console.log("Server is running on port", port );
 });
+module.exports.handler = serverless(app);
